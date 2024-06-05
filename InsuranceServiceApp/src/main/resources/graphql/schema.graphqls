@@ -1,0 +1,27 @@
+type Insurance {
+    _id: String!
+    id: ID!
+    logo: String!
+    phone: String!
+    offeredPolicies: [String!]
+    customerRating: Float!
+    insuranceAccount: String!
+    insuranceBank: String!
+}
+
+type Query {
+    getInsurance: [Insurance]
+}
+
+type Mutation {
+  createInsurance(createInsuranceInput: CreateInsuranceInput!): Insurance
+}
+
+input CreateInsuranceInput {
+    logo: String!
+    phone: String!
+    offeredPolicies: [String]
+    customerRating: Float
+    insuranceAccount: String!
+    insuranceBank: String!
+}

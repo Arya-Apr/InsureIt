@@ -1,0 +1,65 @@
+type User {
+    _id: String!
+    id: ID!
+    name: String!
+    password: String!
+    roles: [String!]
+    email: String!
+    profile: String
+    phoneNumber: String!
+    address: String!
+    bank: [String!]
+    document: [String!]
+    dob: String!
+    gender: String!
+    age: Float!
+    docNumber: String!
+}
+
+type Query {
+    getUsers: [User]
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User
+  login(email: String!, password: String!): JwtResponse
+  updateUser(updateUserInput: UpdateUserInput!): User
+}
+
+
+input CreateUserInput {
+    name: String!
+    password: String!
+    roles: [String!]
+    email: String!
+    profile: String!
+    phoneNumber: String!
+    address: String!
+    bank: [String]
+    document: [String]
+    dob: String!
+    gender: String!
+    age: Float!
+    docNumber: String!
+}
+
+input UpdateUserInput {
+    id: String!
+    name: String!
+    password: String!
+    roles: [String!]
+    email: String!
+    profile: String
+    phoneNumber: String!
+    address: String!
+    bank: [String]
+    document: [String]
+    dob: String!
+    gender: String!
+    age: Float!
+    docNumber: String!
+}
+type JwtResponse {
+  jwtToken: String!
+  username: String!
+}

@@ -1,0 +1,22 @@
+type Account {
+    _id: String!
+    account_id: ID!
+    balance: Float!
+    password: String!
+    account_holder: String!
+    associated_bank: String!
+}
+
+type Query {
+    getAccounts: [Account]
+}
+
+type Mutation {
+  createAccount(createAccountInput: CreateAccountInput!): Account
+}
+
+input CreateAccountInput {
+    balance: Float!
+    password: String!
+    associated_bank: String!
+}

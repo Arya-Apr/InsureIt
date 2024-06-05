@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <style>
+            .dropdown-menu {
+                display: none;
+                position: absolute;
+                /*background-color: #f9f9f9;*/
+                /*min-width: 160px;*/
+                width: fit-content;
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+                z-index: 1;
+            }
+            .dropdown-menu a {
+                color: black;
+                padding: 16px;
+                text-decoration: none;
+                display: block;
+                white-space: nowrap
+            }
+            .dropdown-toggle:hover{
+                text-decoration: underline
+            }
+            .dropdown-toggle::after{
+                transition: 0.5s ease;
+            }
+            .dropdown-toggle:hover::after{
+                transition: 0.5s ease;
+                transform: rotate(180deg)
+            }
+            .dropdown-menu a:hover {
+                /*background-color: #f1f1f1;*/
+                text-decoration: underline;
+            }
+            .nav-item:hover .dropdown-menu {
+                display: block;
+            }
+            .dropdown-item:hover{
+                text-decoration: underline
+            }
+            ::-webkit-scrollbar {
+                width: 10px;
+                height: 5px;
+            }
+
+            ::-webkit-scrollbar-track {
+                border-radius: 5px;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background-color: #8b8b8b;
+                border-radius: 5px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background-color: #000000;
+            }
+
+            ::-webkit-scrollbar-thumb:active {
+                background-color: #000000;
+            }
+        </style>
+        <title layout:title-pattern="$CONTENT_TITLE"></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/styles.css}"/>
+        <link rel="icon" style="border-radius: 50%" type="image/x-icon" th:href="@{/favicon.png}">
+    </head>
+    <body>
+        <nav class="container navbar navbar-expand-lg ps-5 pe-5 ">
+            <div class="container-fluid flex flex-row pe-5 align-items-center">
+                <a class="navbar-brand" href="/"><img th:src="@{/images/logo.png}" width="200px" alt="insureit"/></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end gap-5" id="navbarNav">
+                    <ul class="navbar-nav flex flex-row gap-5">
+                        <li class="nav-item">
+                            <h6><a class="nav-link" id="navbarDropdown" aria-current="page" href="#" th:href="@{/}">Home</a></h6>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <h6> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Insurances</a></h6>
+                            <div class="dropdown-menu max-width" aria-labelledby="navbarDropdown">                         
+                                <div class="d-flex flex-row gap-20">
+                                    <div class="nav-link" >
+                                        <h6><a class="max-width d-flex flex-row" th:href="@{/link1}">Health Insurance</a></h6>
+                                    </div>
+                                    <div class="nav-link">
+                                        <h6><a class="max-width d-flex flex-row" th:href="@{/link1}">Term Insurance</a></h6>
+                                    </div>
+                                    <div class="nav-link">
+                                        <h6><a class="max-width d-flex flex-row" th:href="@{/link1}">Car Insurance</a></h6>
+                                    </div>
+                                    <div class="nav-link">
+                                        <h6><a class="max-width d-flex flex-row" th:href="@{/link1}">Other Insurance</a></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <h6><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Policies</a></h6>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <div th:each="policy: ${policies}">
+                                    <a class="dropdown-item" th:href="@{/policy/{id}(id=${policy._id})}" th:text="${policy.policyName}"></a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item" th:if="${token}==true">
+                            <h6><a class="nav-link" id="navbarDropdown" href="#" th:href="@{/users}">Users</a></h6>
+                        </li>
+                        <li class="nav-item" th:if="${token}==true">
+                            <h6><a class="nav-link" id="navbarDropdown" href="#" th:href="@{/payment}">Payment</a></h6>
+                        </li>
+                    </ul>
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-primary" th:if="${token}==false">
+                            <a class="nav-link" href="#" th:href="@{/login}"  >Login</a>
+                        </button>
+                        <button class="btn btn-primary" th:if="${token}==true">
+                            <a class="nav-link" href="#" th:href="@{/logout}" >Logout</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <section class="container" layout:fragment="content">
+            <p>Some content template</p>
+        </section>
+        <footer th:replace="~{fragments/footer :: footer}"></footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </body>
+</html>

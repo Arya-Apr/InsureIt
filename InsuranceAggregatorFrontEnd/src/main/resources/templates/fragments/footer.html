@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <style>
+
+        </style>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <footer style="width:100%;left:0px;bottom: 0px;padding: 10px; background-color: black;color: white">
+            <div class="container d-flex flex-column gap-5">
+                <div class="max-width">
+                    <a class="navbar-brand" href="#"><img th:src="@{/images/footer_logo.png}" height="70px" width="190px" alt="insureit"/></a>
+                </div>
+                <div>
+                    <nav class="container navbar navbar-expand-lg ps-5 pe-5 bg-dark">
+                        <div class="container-fluid flex flex-row pe-5 align-items-center">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse justify-content-center gap-5" id="navbarNav">
+                                <ul class="navbar-nav flex flex-row gap-5">
+                                    <li class="nav-item">
+                                        <h6><a class="nav-link text-light" id="navbarDropdown" aria-current="page" href="#">Home</a></h6>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <h6> <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Insurances</a></h6>
+                                        <div class="dropdown-menu max-width" aria-labelledby="navbarDropdown">                         
+                                            <div class="d-flex flex-row gap-20">
+                                                <div class="nav-link" >
+                                                    <h6><a class="max-width d-flex flex-row" th:href="@{/link1}">Health Insurance</a></h6>
+                                                </div>
+                                                <div class="nav-link">
+                                                    <h6><a class="max-width d-flex flex-row" th:href="@{/link1}">Term Insurance</a></h6>
+                                                </div>
+                                                <div class="nav-link">
+                                                    <h6><a class="max-width d-flex flex-row" th:href="@{/link1}">Car Insurance</a></h6>
+                                                </div>
+                                                <div class="nav-link">
+                                                    <h6><a class="max-width d-flex flex-row" th:href="@{/link1}">Other Insurance</a></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <h6><a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Policies</a></h6>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <div th:each="policy: ${policies}">
+                                                <a class="dropdown-item" th:href="@{/policy/{id}(id=${policy._id})}" th:text="${policy.policyName}"></a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item" th:if="${token}==true">
+                                        <h6><a class="nav-link text-light" id="navbarDropdown" href="#" th:href="@{/users}">Users</a></h6>
+                                    </li>
+                                    <li class="nav-item" th:if="${token}==true">
+                                        <h6><a class="nav-link text-light" id="navbarDropdown" href="#" th:href="@{/payment}">Payment</a></h6>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <div class="flex" style="width: 100%">
+                    <section class="d-flex flex-column text-color-grey text-start fs-6 fw-light">
+                        <p>
+                            *Standard Plans Terms and Conditions apply
+                        </p>
+                        <p>
+                            +For insurance plans that do not require inspection of your car
+                        </p>
+                        <p>
+                            #The above returns are based on the past performance of 7 years
+                        </p>
+                        <p>
+                            *As per Draft Notification No. RT-11036/194/2021-MVL (Govt. of India, Ministry of Road Transport and Highways
+                        </p>
+                        <p>
+                            #Tax benefit is subject to change in tax laws. ^Valid for policies issued until 31st March 23
+                        </p>
+                        <p>
+                            *The Guaranteed Returns are dependent on the policy term and premium term availed along with the other variable factors. The Guaranteed return of Rs 1 Cr is for a 30-Year-old individual for a policy term of 10 Years and a premium paying term of 5 Years with a Rs 1,00,000 monthly installment premium.
+                        </p>
+                        <p>
+                            **Fixed deposit rate applicable for 5 years 1 day to 10 years for investment amount less < 2 Crore ( Not for senior citizens), PPF interest rate applicable for 15 years for investment amount upto 1.5 Lac
+                        </p>
+                        <p>
+                            *Rs. 950/month is the starting price for a Rs. 1 Crore term life insurance for a 30 year-old male, non-smoker, with no pre-existing diseases, cover upto 68 years of age. Additional premium is payable for riders opted.
+                        </p>
+                        <p>
+                            **Full refund of the premium may be availed when you opt to exit the policy at a pre-defined interval. On availing the one-time option to exit, the total base premium is returned by the Insurer excluding GST & premium paid for additional optional benefits.
+                        </p>
+                    </section>
+                </div>
+                <div class="d-flex flex-column gap-2">
+                    <div class="d-flex justify-content-start">
+                        <h3 class="text-light">Payment Partner</h3>
+                    </div>
+                    <div>
+                        <img class="rounded ms-5" style="height: 50px; width: 80px" 
+                             th:src="@{data:image/jpeg;base64,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}" 
+                             alt="alt"/>
+                    </div>
+                </div>
+                <div class="d-flex flex-column justify-content-center align-items-center text-color-grey fs-6 fw-light">
+                    <p>
+                        **Discount is offered by the Insurance company as approved by IRDAI for the product under File & Use guidelines
+                    </p>
+                    <p>    
+                        #On the basis of your profile
+                    </p>
+                    <p>
+                        InsureIt Insurance Brokers Private Limited | CIN: U74999HR44314PTC0858 | Registered Office - 306-Luxuria, Surat, Gujarat - 395007 Tel no. : 7698896100 Email ID: aryarana.mscit20@vnsgu.ac.in
+                    </p>
+                    <p>
+                        Contact Us | Legal and Admin Policies
+                    </p>
+                    <p>
+                        InsureIt is registered as a Composite Broker | Registration No. 742, Registration Code No. IRDA/ DB 797/ 19, Valid till 09/06/2024, License category- Composite Broker| Visitors are hereby informed that their information submitted on the website may be shared with insurers.Product information is authentic and solely based on the information received from the insurers.
+                    </p>
+                    <p>
+                        © Copyright 2008-2024 InsureIt.com. All Rights Reserved.
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

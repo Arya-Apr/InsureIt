@@ -1,0 +1,47 @@
+type Policy {
+    _id: String!
+    id: ID!
+    policyName: String!
+    policyDescription: String!
+    insuranceProviderId: String!
+    policyType: String!
+    averageMonthlyPremium: Float!
+    customerRating: Float
+    usersEnrolled: [String]
+    premiumDuration: Int!
+    policyPrice: Float!
+    policyInterest: Float!
+    totalRatings: Int
+}
+
+type Query {
+    getPolicies: [Policy]
+    getPoliciesOfInsurance(insuranceProviderId: String!): [Policy]
+    getPoliciesByPage(size: Int, page: Int): [Policy]
+    getPolicyById(policyId: String!): Policy!
+}
+
+type Mutation {
+  createPolicy(createPolicyInput: CreatePolicyInput!): Policy
+  rateAPolicy(rating: Float!, policyId: String!): Policy
+  addUserToPolicy(paymentRequestDto: PaymentRequestDto!): Policy
+}
+
+input CreatePolicyInput {
+    policyName: String!
+    policyDescription: String!
+    insuranceProviderId: String!
+    policyType: String!
+    averageMonthlyPremium: Float!
+    usersEnrolled: [String]
+    premiumDuration: Int!
+    policyPrice: Float!
+    policyInterest: Float!
+}
+
+input PaymentRequestDto {
+    user_email: String!
+    policy_id: String!
+    paymentType: String!
+    auto_pay: Boolean
+}

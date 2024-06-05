@@ -1,0 +1,45 @@
+type Payment {
+    _id: String!
+    id: ID!
+    user_email: String!
+    policy_id: String!
+    paymentType: String!
+    status: String!
+    price: Float!
+    auto_pay: Boolean
+    interest: Float!
+    paymentName: String!
+    createdAt: String!
+}
+
+type Query {
+    getPayments: [Payment]
+}
+
+type Mutation {
+  createPayment(createPaymentInput: CreatePaymentInput!): Payment
+  createStripePayment(stripeRequest: StripeRequest!): StripeResponse
+}
+
+type StripeResponse {
+    intentID: String!
+    clientSecret: String!
+}
+
+input CreatePaymentInput {
+    policy_id: String!
+    user_email: String!
+    paymentType: String!
+    status: String!
+    price: Float!
+    auto_pay: Boolean
+    interest: Float!
+    paymentName: String!
+}
+
+input StripeRequest {
+    price: Float!
+    paymentName: String!
+    user_email: String!
+    policy_id: String!
+}

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/fragments/layouts/base_layout}">
+    <head>
+        <title>Create An Account</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/styles.css}"/>
+    </head>
+    <body>
+        <section layout:fragment="content">
+            <form class="container p-5 d-flex justify-content-center align-items-center justify-self-center" th:if="${token}==false" action="#" th:action="@{/signup}" method="post" th:object="${signupForm}" enctype="multipart/form-data">
+                <div class="d-flex flex-column align-items-center justify-content-center w-50 gap-3 p-5 shadow border border-dark-subtle rounded">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <h2>Create An Account</h2>
+                    </div>
+                    <div class="d-flex flex-column gap-3">
+                        <div class="input-group mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="name" placeholder="Name" th:field="*{name}" required>
+                                <label for="name">Name</label>
+                            </div>
+                            <span class="input-group-text">Haruko Murakami</span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username" th:field="*{email}" required>
+                                <label for="floatingInputGroup1">Username</label>
+                            </div>
+                            <span class="input-group-text">@example.com</span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="form-floating">
+                                <input type="password" id="inputPassword" class="form-control" placeholder="Password" th:field="*{password}" required>
+                                <label for="inputPassword">Password</label>
+                            </div>
+                            <span class="input-group-text rounded-end">********</span>
+                            <div id="passwordHelpBlock" class="form-text ms-3">
+                                Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="form-floating d-flex gap-3">
+                                <input class="form-control" type="file" th:field="*{profile}" id="formFile">
+                                <label for="formFile">Choose Profile Photo</label>
+                            </div>
+                            <span class="input-group-text rounded-end">photo.jpg</span>
+                        </div>
+                        <div class="input-group mb-3 border boder-dark-subtle p-2 rounded">
+                            <div class="d-flex flex-column gap-2">
+                                <label>Choose Your Roles</label>
+                                <div class="d-flex flex-row gap-3">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" th:value="ADMIN" onchange="addRoleToList(this.value)">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">Admin</label>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault1" th:value="USER" onchange="addRoleToList(this.value)">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault1">User</label>
+                                    </div>
+                                    <input type="hidden" name="selectedRoles" id="selectedRoles" th:value="${#strings.listJoin(selectedRoles, ',')}">
+                                    <script th:inline="javascript">
+                                        function addRoleToList(roleValue) {
+                                            var selectedRolesInput = document.getElementById("selectedRoles");
+                                            var currentSelectedRoles = selectedRolesInput.value.split(','); // Split existing roles
+
+                                            if (this.checked) { // If checked, add role
+                                                currentSelectedRoles.push(roleValue);
+                                            } else { // If unchecked, remove role
+                                                currentSelectedRoles = currentSelectedRoles.filter(function (existingRole) {
+                                                    return existingRole !== roleValue;
+                                                });
+                                            }
+                                            selectedRolesInput.value = currentSelectedRoles.join(','); // Update hidden input with comma-separated values
+                                        }
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="phone" placeholder="Phone Number" th:field="*{phoneNumber}" required>
+                                <label for="phone">Phone Number</label>
+                            </div>
+                            <span class="input-group-text">9876543210</span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="form-floating">
+                                <textarea class="form-control" id="addr" placeholder="Address" th:field="*{Address}" required></textarea>
+                                <label for="addr">Address</label>
+                            </div>
+                            <span class="input-group-text">F-430, Appt Name/House Name, City, State</span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="doc" placeholder="Document Number" th:field="*{docNumber}" required>
+                                <label for="doc">Kyc Verification Document Number</label>
+                            </div>
+                            <span class="input-group-text">EEEE-EEEE-EEEE-EEEE</span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="form-floating">
+                                <input type="number" class="form-control" id="age" placeholder="Age" th:field="*{age}" required>
+                                <label for="age">Age Above 18</label>
+                            </div>
+                            <span class="input-group-text">>=18</span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="form-floating">
+                                <input type="date" class="form-control" id="date" placeholder="Date Of Birth" th:field="*{dob}" required>
+                                <label for="date">Date Of Birth</label>
+                            </div>
+                            <span class="input-group-text">09/06/2002</span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="form-floating">
+                                <select class="form-select" id="gender" required th:field="*{gender}">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                                <label for="gender">Gender</label>
+                            </div>
+                            <span class="input-group-text">Male</span>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">SignUp</button>
+                    </div>
+                </div>
+            </form>
+            <div class="container p-5 d-flex align-items-center justify-content-center" th:if="${token}==true">
+                <h2>Your Are Already Logged In! You need to logout to sign up...</h2>
+            </div>
+        </section>
+    </body>
+</html>

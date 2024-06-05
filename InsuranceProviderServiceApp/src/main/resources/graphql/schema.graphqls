@@ -1,0 +1,33 @@
+type InsuranceProvider {
+    _id: String!
+    providerId: ID!
+    company_name: String!
+    company_logo: String
+    username: String!
+}
+
+type ProviderNotification {
+    _id: String!
+    notification_id: ID!
+    username: String!
+}
+
+type Query {
+    getInsuranceProvider: [InsuranceProvider]
+    getInsuranceProviderById(providerId: String!): InsuranceProvider!
+}
+
+type Mutation {
+  createInsuranceProvider(createInsuranceProviderInput: CreateInsuranceProviderInput!): InsuranceProvider
+  handleInsuranceProviderRequest(user_id:String!,roles: [String!]): Boolean!
+  requestForInsuranceProvider(userId: String!): Boolean
+}
+
+type Subscription{
+    getNotifications: [ProviderNotification]
+}
+
+input CreateInsuranceProviderInput {
+    company_name: String!
+    company_logo: String
+}

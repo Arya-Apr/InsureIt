@@ -1,0 +1,21 @@
+type Bank {
+    _id: String!
+    id: ID!
+    bank_name: String!
+    offeredPolicies: [String!]
+    interestRate: Float!
+}
+
+type Query {
+    getBanks: [Bank]
+}
+
+type Mutation {
+  createBank(createBankInput: CreateBankInput!): Bank
+}
+
+input CreateBankInput {
+    bank_name: String!
+    offeredPolicies: [String!]
+    interestRate: Float!
+}
